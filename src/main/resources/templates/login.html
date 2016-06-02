@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      layout:decorator="common/layout">
+<head>
+  <title>Log in</title>
+  <link rel="stylesheet" th:href="@{/css/login.css}" />
+</head>
+
+<body>
+  <div layout:fragment="navi" th:remove="tag"></div>
+　　<div id="content" layout:fragment="content">
+    <div class="login-panel">
+      <div th:if="${param.error}" class="alert alert-danger alert-dismissible fade in">
+        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">閉じる</span></button>
+        <span th:if="${param.error[0]} == 'locked'">The user's account is locked.</span>
+        <span th:if="${param.error[0]} == 'expired'">The user's password has expired.</span>
+        <span th:if="${param.error[0]} == 'default'">Incorrect username or password.</span>
+      </div>
+      <div th:if="${param.logout}" class="alert alert-info alert-dismissible fade in">
+        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">閉じる</span></button>
+        You have been logged out.
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">Log in to your account</div>
+        <div class="panel-body">
+          <form id="loginForm" th:action="@{/login}" method="post">
+            <div class="form-group">
+              <label for="inputUserName">User Name</label>
+              <div class="input-group input-group">
+                <span class="input-group-addon"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></span>
+                <input type="text" class="form-control" name="username" id="inputUserName" />
+              </div>
+            </div>
+            <div class="form-group margin-bottom-25">
+              <label for="inputUserName">Password</label>
+              <div class="input-group input-group">
+                <span class="input-group-addon"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span></span>
+                <input type="password" class="form-control" name="password" id="inputPassword" />
+              </div>
+            </div>
+            <a href="/account/join" class="btn btn-sm btn-info">Sign up</a>
+            <button type="submit" id="login" class="btn btn-sm btn-primary pull-right">Log in</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

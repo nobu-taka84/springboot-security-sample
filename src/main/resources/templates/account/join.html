@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      layout:decorator="common/layout">
+<head>
+  <title>Sign up</title>
+  <link rel="stylesheet" th:href="@{/css/login.css}" />
+</head>
+
+<body>
+  <div layout:fragment="navi" th:remove="tag"></div>
+　　<div id="content" layout:fragment="content">
+    <div class="join-panel">
+      <div class="alert alert-danger" th:if="${formErrors != null  or checkErrors != null}">
+        <p th:each="e : ${formErrors}" th:text="${e.defaultMessage}">エラーメッセージ</p>
+        <p th:each="e : ${checkErrors}" th:text="${e.defaultMessage}">エラーメッセージ</p>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">Sign up</div>
+        <div class="panel-body">
+          <form th:action="@{/account/create}" th:object="${joinForm}" method="post">
+            <div class="form-group">
+              <label for="inputUserName">User Name</label>
+              <input type="text" class="form-control" name="username" id="inputUserName" th:value="*{username}" />
+            </div>
+            <div class="form-group">
+              <label for="inputPassword">Password</label>
+              <input type="password" class="form-control" name="password" id="inputPassword" />
+            </div>
+            <div class="form-group margin-bottom-25">
+              <label for="inputConfirmPassword">Confirm your password</label>
+              <input type="password" class="form-control" name="confirmPassword" id="inputConfirmPassword" />
+            </div>
+            <a href="/" class="btn btn-sm btn-default">Back</a>
+            <button type="submit" class="btn btn-sm btn-info pull-right">Create an account</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

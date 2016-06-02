@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ja"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+<meta charset="utf-8" http-equiv="X-UA-Compatible" content="IE=edge" />
+</head>
+
+<body>
+
+  <div th:fragment="header_navi">
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container-fluid">
+  
+        <!-- スマートフォンサイズで表示されるメニューボタンとテキスト -->
+        <div class="navbar-header">
+  
+          <!-- メニューボタン 
+            data-toggle : ボタンを押したときにNavbarを開かせるために必要
+            data-target : 複数navbarを作成する場合、ボタンとナビを紐づけるために必要
+          -->
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav-menu-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          
+          <!-- タイトルなどのテキスト -->
+          <a class="navbar-brand" th:href="@{/}">springboot</a>
+        </div>
+
+        <!-- グローバルナビの中身 -->
+        <div class="collapse navbar-collapse" id="nav-menu-1">
+
+          <!-- 各ナビゲーションメニュー -->
+          <ul class="nav navbar-nav">
+
+            <!-- 通常のリンク -->
+            <li><a th:href="@{/menu/list}">menu</a></li>
+
+            <!-- ドロップダウンのメニューも配置可能 -->
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">list <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a th:href="@{/menu/list}">menu</a></li>
+                <li class="divider"></li>
+                <li><a th:href="@{/menu/list}">menu</a></li>
+                <li class="divider"></li>
+                <li><a th:href="@{/menu/list}">menu</a></li>
+              </ul>
+            </li>
+          </ul>
+
+          
+          <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">system <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a th:href="@{/account/changepassword}">change password</a></li>
+              </ul>
+            </li>
+            <!-- ログアウト -->
+            <li><a th:href="@{/logout}">Logout</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,39 @@
+spring:
+  profiles:
+    active: local
+---
+spring: 
+  profiles: local
+  datasource:
+    url: jdbc:postgresql://localhost:5432/bootsample
+    username: postgres
+    password: postgres
+    driverClassName: org.postgresql.Driver
+  jpa: 
+    showSql: true
+    databasePlatform: org.hibernate.dialect.PostgreSQLDialect
+  thymeleaf:
+    cache: false
+server:
+  port: 8444
+  ssl:
+    key-store: classpath:keystore.jks
+    key-store-password: springBoot
+    key-password: springBoot
+    protocol: TLSv1.2
+auth:
+  idGeneratorPk: user_info_id
+  passwordEncryption:
+    partOfSolt: 1234567890abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQR
+    stretchingCount: 1000
+    key: key12345
+    iv: iv67890
+  userNameMinLength: 5
+  userNameMaxLength: 256
+  userNameComplexity: ^([a-zA-Z0-9])[a-zA-Z0-9¥._-]{3,}([a-zA-Z0-9])$
+  passwordMinLength: 6
+  passwordMaxLength: 64
+  passwordValidTerm: 0
+  passwordComplexity: ^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z\\-]{3,}$
+  authMissMax: 5
+---

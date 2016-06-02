@@ -1,0 +1,13 @@
+<configuration>
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<target>System.out</target>
+		<encoder>
+			<pattern>[%-5level] [%date] [%thread] %logger{50} - %msg%n</pattern>
+		</encoder>
+	</appender>
+	<logger name="com.springboot.security" level="DEBUG" />
+	<root>
+		<level value="INFO" />
+		<appender-ref ref="STDOUT" />
+	</root>
+</configuration>

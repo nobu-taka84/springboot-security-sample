@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ja"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      layout:decorator="common/layout">
+<head>
+  <title>Error</title>
+</head>
+
+<body>
+  <div layout:fragment="navi" th:remove="tag"></div>
+　　<div id="content" layout:fragment="content">
+    <h2>エラー</h2>
+    <h4>再度ログインしなおして下さい</h4>
+    <div th:if="${errorMsg}" class="alert alert-info" th:text="${errorMsg}"></div>
+    <br />
+    <p><a href="/login" class="btn btn-default">ログイン画面に戻る</a></p>
+  </div>
+</body>
+</html>

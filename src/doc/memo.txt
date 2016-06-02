@@ -1,0 +1,15 @@
+■ 環境による設定ファイルの読み込み変更方法
+実行時に、パラメーターで環境毎に読み込みプロパティを変更することができる。
+設定自体は、resoureces/application.yamlに記入すること（環境分全て）
+開発環境
+/usr/bin/java -jar -Dspring.profiles.active=dev /home/admintool/bin/tenshock-admintool-0.0.1-SNAPSHOT.jar
+運用環境
+/usr/bin/java -jar -Dspring.profiles.active=prod /home/admintool/bin/tenshock-admintool-0.0.1-SNAPSHOT.jar
+
+■ 設定の起動時設定 
+実行時に、設定ファイルに設定している値を上書きすることができます。たとえば、本番環境のpostgresのパスワードはgitにコミットしたくないとき等に利用
+/usr/bin/java -jar -Dspring.profiles.active=prod -Dspring.datasource.password=XXXXX /home/admintool/bin/tenshock-admintool-0.0.1-SNAPSHOT.jar \
+
+■ jarファイル内のファイル上書き
+jar uvf ${jarファイル} ${上書きするファイル}
+

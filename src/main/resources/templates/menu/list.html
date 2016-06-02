@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ja"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      layout:decorator="common/layout">
+<head>
+  <title>menu</title>
+</head>
+
+<body>
+　　<div id="content" layout:fragment="content">
+    <h4>top menu</h4>
+　　    <div class="row">
+	  <span th:text="${loginUser}"></span>
+    </div>
+  </div>
+
+</body>
+</html>
