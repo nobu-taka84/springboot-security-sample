@@ -7,13 +7,13 @@ package com.springboot.security.constants;
 public enum UserPrivilege {
 
     /** 管理者 */
-    ROLE_ADMIN("01", "ROLE_ADMIN"),
+    ADMIN("01", "ROLE_ADMIN"),
 
     /** サブ管理者 */
-    ROLE_ADMIN_SUB("02", "ROLE_ADMIN_SUB"),
+    ADMIN_SUB("02", "ROLE_ADMIN_SUB"),
 
     /** 一般ユーザ */
-    ROLE_USER("03", "ROLE_USER");
+    USER("03", "ROLE_USER");
 
     private final String userPrivilege;
     private final String role;
@@ -35,7 +35,7 @@ public enum UserPrivilege {
     /**
      * ロール名を取得する
      *
-     * @return ロール名(ROLE_)
+     * @return ロール名
      */
     public String getRole() {
         return role;
@@ -45,7 +45,7 @@ public enum UserPrivilege {
      * 指定した権限idのロール名を取得する
      *
      * @param userPrivilege
-     * @return ロール名(ROLE_)
+     * @return ロール名
      */
     public static String getUserRole(String userPrivilege) {
         UserPrivilege[] enumArray = UserPrivilege.values();

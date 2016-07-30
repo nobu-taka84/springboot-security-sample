@@ -17,7 +17,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.springboot.security.auth.CustomAuthenticationProvider;
-import com.springboot.security.auth.LoginUser;
+import com.springboot.security.auth.CustomUserDetailsService;
 import com.springboot.security.constants.ErrorCode;
 import com.springboot.security.dao.dto.UserInfoDto;
 import com.springboot.security.exception.UserInfoException;
@@ -45,7 +45,8 @@ public class AccountController {
     private MessageSource messageSource;
 
     @Autowired
-    private LoginUser loginUser;
+    private CustomUserDetailsService customUserDetailsService;
+
 
     /**
      * 会員登録フォーム表示
@@ -129,6 +130,7 @@ public class AccountController {
                 userInfoService.createUserInfo(form.getUsername(), form.getPassword());
 
         // 登録した会員でログイン
+        createUserInfo.setPassword("");
         autoLogin(createUserInfo);
 
         return "redirect:/";
@@ -211,9 +213,11 @@ public class AccountController {
             return "account/changepassword";
         }
 
+        // ユーザ情報取得
+        UserInfoDto userInfo = customUserDetailsService.getAuthUserInfo();
+
         // パスワード変更
-        userInfoService.updatePassword(//
-                loginUser.getUserInfo().getUsername(), form.getPassword());
+        userInfoService.updatePassword(userInfo.getUsername(), form.getPassword());
 
         return "redirect:/";
     }

@@ -18,6 +18,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import com.springboot.security.constants.UserPrivilege;
@@ -43,7 +44,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     private UserInfoService userInfoService;
 
     @Autowired
-    private LoginUser loginUser;
+    private CustomUserDetailsService userDetailsService;
 
     /**
      * ログイン処理
@@ -82,6 +83,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         updateLoginHistory(userInfo.getId());
 
         // 権限付与
+        userInfo.setPassword("");
         return setUserPrivilege(userInfo);
     }
 
@@ -116,21 +118,16 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
      * 権限付与
      */
     public Authentication setUserPrivilege(UserInfoDto userInfo) throws AuthenticationException {
-        // ログインユーザーをセット
-        loginUser.setUserInfo(userInfo);
-
         // 権限付与
-        List<SimpleGrantedAuthority> simpleGrantedAuthorityList = new ArrayList<>();
-        List<UserPrivilege> userPrivilegeList = new ArrayList<>();
-
-        userInfo.getUserPrivilegeInfoList().forEach(userPrivilegeInfo -> {
-            SimpleGrantedAuthority simpleGrantedAuthority =
-                    new SimpleGrantedAuthority(UserPrivilege.getUserRole(userPrivilegeInfo));
-            simpleGrantedAuthorityList.add(simpleGrantedAuthority);
-            userPrivilegeList.add(
-                    UserPrivilege.getUserPrivilegeByRole(simpleGrantedAuthority.getAuthority()));
+        List<SimpleGrantedAuthority> authorityList = new ArrayList<>();
+        userInfo.getUserPrivilegeInfoList().forEach(privilege -> {
+            authorityList.add(new SimpleGrantedAuthority(UserPrivilege.getUserRole(privilege)));
         });
-        return new UsernamePasswordAuthenticationToken(userInfo, null, simpleGrantedAuthorityList);
+
+        // ログインユーザーをセット
+        UserDetails loadedUser = userDetailsService.setUserInfo(userInfo, authorityList);
+
+        return new UsernamePasswordAuthenticationToken(loadedUser, null, authorityList);
     }
 
     @Override

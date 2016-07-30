@@ -1,10 +1,13 @@
 package com.springboot.security.controller;
 
+import java.security.Principal;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class LoginController {
@@ -17,20 +20,12 @@ public class LoginController {
      * @return 遷移先テンプレート
      */
     @RequestMapping(value = "/login")
-    public String login() {
+    public String login(HttpServletRequest request) {
         LOGGER.info("START:/login");
-        return "login";
-    }
 
-    /**
-     * ログアウト
-     *
-     * @return 遷移先テンプレート
-     */
-    @RequestMapping(value = "/", method = RequestMethod.GET, params = {"logout"})
-    public String logout() {
-        LOGGER.info("START:/logout");
-        return "login";
+        Principal principal = request.getUserPrincipal();
+
+        return (principal == null) ? "login" : "redirect:/";
     }
 
 }

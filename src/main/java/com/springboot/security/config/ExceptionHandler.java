@@ -1,4 +1,4 @@
-package com.springboot.security;
+package com.springboot.security.config;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

@@ -141,9 +141,9 @@ public class UserInfoServiceImpl implements UserInfoService {
 
             // TODO とりあえず１人目は管理者権限
             if (userInfoId.compareTo(1L) == 0) {
-                userPrivilegeInfo.setUserPrivilege(UserPrivilege.ROLE_ADMIN.getUserPrivilege());
+                userPrivilegeInfo.setUserPrivilege(UserPrivilege.ADMIN.getUserPrivilege());
             } else {
-                userPrivilegeInfo.setUserPrivilege(UserPrivilege.ROLE_USER.getUserPrivilege());
+                userPrivilegeInfo.setUserPrivilege(UserPrivilege.USER.getUserPrivilege());
             }
             userPrivilegeInfoRepository.save(userPrivilegeInfo);
 
